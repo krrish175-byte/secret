@@ -37,8 +37,8 @@ const CakeSection: React.FC = () => {
     <section id="cake" className="py-20 bg-white/50 relative overflow-hidden">
       <style>{`
         @keyframes cake-float {
-          0%, 100% { transform: translate(-50%, 0); }
-          50% { transform: translate(-50%, -10px); }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
         }
         @keyframes flame-flicker {
           0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.9; }
@@ -47,8 +47,8 @@ const CakeSection: React.FC = () => {
           75% { transform: translateX(-50%) scale(1.05); opacity: 0.95; }
         }
         @keyframes layer-sway {
-          0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
-          50% { transform: translate(-50%, 0) rotate(0.5deg); }
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(0.5deg); }
         }
         @keyframes slide-slice {
           0% { transform: translateX(0) rotate(0deg); opacity: 0; }
@@ -101,32 +101,36 @@ const CakeSection: React.FC = () => {
             </div>
             
             {/* Middle Layer */}
-            <div className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-[80%] h-[28%] bg-rose-300 rounded-t-2xl border-b-8 border-rose-400 shadow-lg z-20 animate-sway">
-               <div className="flex justify-around mt-3">
-                 {[...Array(4)].map((_, i) => (
-                    <div key={i} className="w-4 h-4 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.3}s` }}></div>
-                 ))}
+            <div className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-[80%] h-[28%] z-20">
+               <div className="w-full h-full bg-rose-300 rounded-t-2xl border-b-8 border-rose-400 shadow-lg animate-sway">
+                 <div className="flex justify-around mt-3">
+                   {[...Array(4)].map((_, i) => (
+                      <div key={i} className="w-4 h-4 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.3}s` }}></div>
+                   ))}
+                 </div>
                </div>
             </div>
             
             {/* Top Layer */}
-            <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 w-[60%] h-[25%] bg-rose-200 rounded-t-2xl border-b-4 border-rose-300 shadow-md z-30 animate-cake-float">
-               {/* Candles */}
-               <div className="absolute -top-14 left-0 right-0 flex justify-center gap-6">
-                 {[1, 2, 3].map((i) => (
-                   <div key={i} className="relative w-3 h-16 bg-gradient-to-t from-pink-100 to-pink-200 rounded-full border border-pink-300 shadow-inner">
-                     {!candlesBlown && (
-                       <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-10 bg-orange-400 rounded-full animate-flame shadow-[0_0_25px_rgba(251,146,60,1)] z-50">
-                         <div className="w-3 h-5 bg-yellow-200 rounded-full mx-auto mt-1 blur-[1px]"></div>
+            <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 w-[60%] h-[25%] z-30">
+               <div className="w-full h-full bg-rose-200 rounded-t-2xl border-b-4 border-rose-300 shadow-md animate-cake-float">
+                   {/* Candles */}
+                   <div className="absolute -top-14 left-0 right-0 flex justify-center gap-6">
+                     {[1, 2, 3].map((i) => (
+                       <div key={i} className="relative w-3 h-16 bg-gradient-to-t from-pink-100 to-pink-200 rounded-full border border-pink-300 shadow-inner">
+                         {!candlesBlown && (
+                           <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-10 bg-orange-400 rounded-full animate-flame shadow-[0_0_25px_rgba(251,146,60,1)] z-50">
+                             <div className="w-3 h-5 bg-yellow-200 rounded-full mx-auto mt-1 blur-[1px]"></div>
+                           </div>
+                         )}
+                         {candlesBlown && (
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-gray-400 animate-pulse">
+                              ✨
+                            </div>
+                         )}
                        </div>
-                     )}
-                     {candlesBlown && (
-                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-gray-400 animate-pulse">
-                          ✨
-                        </div>
-                     )}
+                     ))}
                    </div>
-                 ))}
                </div>
             </div>
 
